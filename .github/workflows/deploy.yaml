@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+          node-version: '20' # Usando a versão LTS mais recente do Node.js
 
       - name: Install HTMLHint
         run: npm install -g htmlhint
@@ -48,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: .
+          path: . # Implanta todo o conteúdo do repositório
 
       - name: Deploy to GitHub Pages
         id: deployment
