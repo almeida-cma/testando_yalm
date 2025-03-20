@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2  # Usando a versão estável
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '18'  # Atualizado para Node.js 18
 
       - name: Install HTMLHint
         run: npm install -g htmlhint
@@ -40,13 +40,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2  # Usando a versão estável
+        uses: actions/checkout@v4
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Build (if needed)
+        run: |
+          echo "Add build commands here if needed"
+          # Exemplo: npm run build
+
       - name: Upload artifact
-        uses: actions/upload-artifact@v2  # Versão v2 estável
+        uses: actions/upload-pages-artifact@v1
         with:
           path: .
 
