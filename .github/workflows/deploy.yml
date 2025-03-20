@@ -24,7 +24,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'  # Atualizado para Node.js 18
+          node-version: '18'
 
       - name: Install HTMLHint
         run: npm install -g htmlhint
@@ -44,11 +44,6 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      - name: Build (if needed)
-        run: |
-          echo "Add build commands here if needed"
-          # Exemplo: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
