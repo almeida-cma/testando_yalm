@@ -30,7 +30,9 @@ jobs:
         run: npm install -g htmlhint
 
       - name: Run HTMLHint
-        run: htmlhint **/*.html
+        run: |
+          set -e  # Faz o job falhar se houver erros
+          htmlhint **/*.html
 
   deploy:
     needs: lint
@@ -55,5 +57,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        with:
-          # Aqui deve ser incluído o caminho correto do artefato, se necessário
