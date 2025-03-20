@@ -18,46 +18,48 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      - name: Install HTMLHint
+      - name: Instalar HTMLHint
         run: npm install -g htmlhint
 
-      - name: Run HTMLHint
+      - name: Verificar HTML com HTMLHint
         run: |
           htmlhint **/*.html | tee lint-results.log
           if [ -s lint-results.log ]; then
-            echo "HTMLHint encontrou erros. Corrija antes de continuar."
+            echo "❌ ERRO: HTML contém problemas. Corrija antes do deploy!"
             exit 1
+          else
+            echo "✅ HTML sem erros! Pronto para o deploy."
           fi
 
   deploy:
-    needs: lint
-    if: success()  # Apenas executa se 'lint' passar
+    needs: lint  # Só executa se 'lint' passar sem erros
+    if: success()  # Garante que só roda se não houver erros no HTML
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout código
         uses: actions/checkout@v4
 
-      - name: Setup Pages
+      - name: Configurar GitHub Pages
         uses: actions/configure-pages@v5
         with:
-          enablement: true  # Forçar habilitação do GitHub Pages
+          enablement: true
 
-      - name: Upload artifact
+      - name: Enviar artefato para deploy
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .  # Implanta todo o conteúdo do repositório
+          path: .  # Envia todo o repositório
 
-      - name: Deploy to GitHub Pages
+      - name: Publicar no GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
