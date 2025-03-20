@@ -31,11 +31,15 @@ jobs:
 
       - name: Run HTMLHint
         run: |
-          set -e  # Faz o job falhar se houver erros
-          htmlhint **/*.html
+          htmlhint **/*.html | tee lint-results.log
+          if [ -s lint-results.log ]; then
+            echo "HTMLHint encontrou erros. Corrija antes de continuar."
+            exit 1
+          fi
 
   deploy:
     needs: lint
+    if: success()  # Apenas executa se 'lint' passar
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
