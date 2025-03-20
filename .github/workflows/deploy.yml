@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2  # Alterado para v2
+        uses: actions/checkout@v2  # Usando a versão estável
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -36,17 +36,17 @@ jobs:
     needs: lint
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}  # Pode precisar ser ajustado ou removido
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2  # Alterado para v2
+        uses: actions/checkout@v2  # Usando a versão estável
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2  # Alterado para v2
+        uses: actions/upload-artifact@v3  # Usando a versão correta (v3)
         with:
           path: .
 
