@@ -36,7 +36,7 @@ jobs:
     needs: lint
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}  # Pode precisar ser ajustado
+      url: ${{ steps.deployment.outputs.page_url }}  # Pode precisar ser ajustado ou removido
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
